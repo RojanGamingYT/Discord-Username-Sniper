@@ -17,3 +17,15 @@
 > **WARNING:** Many people have been selling/distributing of this Script!
 
 > **DO NOT** Installing Sniper From Anyother Place Than This Page, Expect it be **Hacked/Scammed.**
+
+
+## Installation
+```sh-session
+Download This as zip
+Extract File
+Tap "Install.bat" in Folder
+Once All The Modules Have Been Installed it will Auto Launch!
+Enjoy!
+
+NOTE: Make sure you have Python 3.9+ and Added to Path.
+```
