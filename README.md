@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://img.shields.io/github/languages/top/RojanGamingYT/Discord-Username-Sniper?color=6d00c1&label-style=flat-square" </a>
+<img src="https://img.shields.io/github/languages/top/RojanGamingYT/Discord-Username-Sniper"</a>
 </p>
 
 ![image](https://github.com/RojanGamingYT/Discord-Username-Sniper/blob/61e06664980001f3aed929d7fbfa0f9f561066c1/preview.png)
