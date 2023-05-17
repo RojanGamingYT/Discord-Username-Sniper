@@ -11,11 +11,8 @@
 ### Settings:
 - [x] - **Windows 10 / 11**
 - [x] - **Download Python:** [v3.10](https://www.python.org/ftp/python/3.10.5/python-3.10.5-amd64.exe) **or** [v3.9](https://www.python.org/ftp/python/3.9.0/python-3.9.0-amd64.exe)
-
 - [x] - **100% Safe!**
-- [x] - **Fequently Updating**
 - [x] - **Might Have Some Bugs**
-- [x] - **Python Provided**
 
 > **WARNING:** Many people have been selling/distributing of this Script!
 
