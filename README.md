@@ -9,7 +9,7 @@
 ```
 ・ 20 stars for Tool with proxy ❌
 
-・ 50 stars for Advanced gen ❌
+・ 50 stars for Real Advanced gen ❌
 
 ・ 100 stars for Better and Managed Generator ❌
 
