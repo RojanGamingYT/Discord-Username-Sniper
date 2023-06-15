@@ -2,5 +2,5 @@ os
 sys
 time
 colorama
-webbrowser
-bs64
+threading
+tls_client
