@@ -7,13 +7,11 @@
 
 ## 🥅 ・Goals
 ```
-・ 20 stars for Tool with proxy ❌
+・ 25 stars for Tool with proxy ❌
 
-・ 50 stars for Real Advanced gen ❌
+・ 50 stars for Advanced gen ❌
 
 ・ 100 stars for Better and Managed Generator ❌
-
-・ 1000 stars for Own Discord Platform ❌
 ```
 
 ## Installation
