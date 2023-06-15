@@ -20,8 +20,9 @@
 ```sh-session
 Download This as zip
 Extract File
-Tap "Install.bat" in Folder
-Once All The Modules Have Been Installed it will Auto Launch!
+pip install -r requirements.txt
+Once All The Modules Have Been Installed
+python discord.py
 Enjoy!
 
 NOTE: Make sure you have Python 3.9+ and Added to Path.
