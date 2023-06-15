@@ -1,4 +1,149 @@
+# https://github.com/RojanGamingYT | https://github.com/RojanGamingYT/Discord-Username-Sniper
+# Coded / Dev / Owner: RojanGamingYT
+# Copyright © RojanGamingYT
+#########################################################
+
 import os
-import base64
-SECRET_ENV = "IyBodHRwczovL2dpdGh1Yi5jb20vUm9qYW5HYW1pbmdZVCB8IGh0dHBzOi8vZ2l0aHViLmNvbS9Sb2phbkdhbWluZ1lUL0Rpc2NvcmQtVXNlcm5hbWUtU25pcGVyCiMgQ29kZWQgLyBEZXYgLyBPd25lcjogUm9qYW5HYW1pbmdZVAojIENvcHlyaWdodCDCqSBSb2phbkdhbWluZ1lUCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwoKaW1wb3J0IG9zCmltcG9ydCBzeXMKaW1wb3J0IHRpbWUKaW1wb3J0IGNvbG9yYW1hCmZyb20gb3MgaW1wb3J0IHN5c3RlbQpmcm9tIHRpbWUgaW1wb3J0IHNsZWVwCmZyb20gY29sb3JhbWEgaW1wb3J0ICoKaW1wb3J0IHdlYmJyb3dzZXIKZnJvbSBjb2xvcmFtYSBpbXBvcnQgQmFjaywgRm9yZSwgU3R5bGUKCncgPSBGb3JlLldISVRFCmIgPSBGb3JlLkJMQUNLCmcgPSBGb3JlLkxJR0hUR1JFRU5fRVgKeSA9IEZvcmUuTElHSFRZRUxMT1dfRVgKbSA9IEZvcmUuTElHSFRNQUdFTlRBX0VYCmMgPSBGb3JlLkxJR0hUQ1lBTl9FWApsciA9IEZvcmUuTElHSFRSRURfRVgKbGIgPSBGb3JlLkxJR0hUQkxVRV9FWAoKZGVmIFNwaW5uZXIoKToKCWwgPSBbJ3wnLCAnLycsICctJywgJ1xcJywgJyAnXQoJZm9yIGkgaW4gbCtsK2w6CgkJc3lzLnN0ZG91dC53cml0ZShmIiIiXHIge2l9IiIiKQoJCXN5cy5zdGRvdXQuZmx1c2goKQoJCXRpbWUuc2xlZXAoMC4xKQogICAgICAgICAgICAgICAgCmRlZiB3b3JkKCk6CglsID0gWyd8JywgJy8nLCAnLScsICdcXCcsICcgJ10KCWZvciBpIGluIGwrbCtsOgoJCXN5cy5zdGRvdXQud3JpdGUoZiIiIlxyIFN0YXJ0aW5nIHtpfSIiIikKCQlzeXMuc3Rkb3V0LmZsdXNoKCkKCQl0aW1lLnNsZWVwKDAuMSkKCmdsb2JhbCBjbHMKZGVmIGNscygpOgogb3Muc3lzdGVtKCdjbHMnIGlmIG9zLm5hbWU9PSdudCcgZWxzZSAnY2xlYXInKQoKZGVmIHRvb2woKToKICBvcy5zeXN0ZW0oJ2NscycgaWYgb3MubmFtZT09J250JyBlbHNlICdjbGVhcicpCgpkZWYgY2xlYXJDb25zb2xlKCk6IHJldHVybiBvcy5zeXN0ZW0oCiAgICAnY2xzJyBpZiBvcy5uYW1lIGluICgnbnQnLCAnZG9zJykgZWxzZSAnY2xlYXInKQoKZGVmIHNwYW1tZXIoKToKICAgIGNsZWFyID0gbGFtYmRhOiBvcy5zeXN0ZW0oJ2NscycpCiAgICBjbGVhcigpCiAgICBjb2xvcmFtYS5pbml0KCkKICAgIHByaW50KCcnKQogICAgcHJpbnQoJycpCiAgICBwcmludCgiICAgLyQkICAgLyQkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8kJCQkJCQgICAgICAgICAgICAvJCQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiIpCiAgICBwcmludCgiICB8ICQkICB8ICQkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLyQkX18gICQkICAgICAgICAgIHxfXy8gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiIpCiAgICBwcmludCgiICB8ICQkICB8ICQkICAvJCQkJCQkJCAgLyQkJCQkJCAgIC8kJCQkJCQgIC8kJCQkJCQkICAgLyQkJCQkJCAgLyQkJCQkJC8kJCQkICAgLyQkJCQkJCAgICAgICB8ICQkICBcX18vIC8kJCQkJCQkICAvJCQgIC8kJCQkJCQgICAvJCQkJCQkICAgLyQkJCQkJCBcbiIpCiAgICBwcmludCgiICB8ICQkICB8ICQkIC8kJF9fX19fLyAvJCRfXyAgJCQgLyQkX18gICQkfCAkJF9fICAkJCB8X19fXyAgJCR8ICQkXyAgJCRfICAkJCAvJCRfXyAgJCQgICAgICB8ICAkJCQkJCQgfCAkJF9fICAkJHwgJCQgLyQkX18gICQkIC8kJF9fICAkJCAvJCRfXyAgJCRcbiIpCiAgICBwcmludCgiICB8ICQkICB8ICQkfCAgJCQkJCQkIHwgJCQkJCQkJCR8ICQkICBcX18vfCAkJCAgXCAkJCAgLyQkJCQkJCR8ICQkIFwgJCQgXCAkJHwgJCQkJCQkJCQgICAgICAgXF9fX18gICQkfCAkJCAgXCAkJHwgJCR8ICQkICBcICQkfCAkJCQkJCQkJHwgJCQgIFxfXy9cbiIpCiAgICBwcmludCgiICB8ICQkICB8ICQkIFxfX19fICAkJHwgJCRfX19fXy98ICQkICAgICAgfCAkJCAgfCAkJCAvJCRfXyAgJCR8ICQkIHwgJCQgfCAkJHwgJCRfX19fXy8gICAgICAgLyQkICBcICQkfCAkJCAgfCAkJHwgJCR8ICQkICB8ICQkfCAkJF9fX19fL3wgJCQgICAgICBcbiIpCiAgICBwcmludCgiICB8ICAkJCQkJCQvIC8kJCQkJCQkL3wgICQkJCQkJCR8ICQkICAgICAgfCAkJCAgfCAkJHwgICQkJCQkJCR8ICQkIHwgJCQgfCAkJHwgICQkJCQkJCQgICAgICB8ICAkJCQkJCQvfCAkJCAgfCAkJHwgJCR8ICQkJCQkJCQvfCAgJCQkJCQkJHwgJCQgICAgICBcbiIpCiAgICBwcmludCgiICBcX19fX19fLyB8X19fX19fXy8gIFxfX19fX19fL3xfXy8gICAgICB8X18vICB8X18vIFxfX19fX19fL3xfXy8gfF9fLyB8X18vIFxfX19fX19fLyAgICAgICBcX19fX19fLyB8X18vICB8X18vfF9fL3wgJCRfX19fLyAgXF9fX19fX18vfF9fLyAgICAgIFxuIikKICAgIHByaW50KCIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAkJCAgICAgICAgICAgICAgICAgICAgICAgICAgXG4iKQogICAgcHJpbnQoIiAgW0dpdGh1Yi5jb20vUm9qYW5HYW1pbmdZVF0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICQkICAgICAgICAgICAgICAgICAgICAgICAgICBcbiIpCiAgICBwcmludCgiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHxfXy8gICAgICAgICAgICAgICAgICAgICAgICAgIFxuIikKICAgIHByaW50KCLilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZDilZAiKQogICAgcHJpbnQoZicnJ3ttfScnJy5yZXBsYWNlKCckJywgZid7bX0ke3d9JykgKyBmJycnCnttfVt7d30xe0ZvcmUuUkVTRVR9e219XXtGb3JlLlJFU0VUfXtnfSAyIGNoYXJhY3RlciBVc2VybmFtZSBHZW5lcmF0b3IgWzIlIFN1Y2Nlc3Nde0ZvcmUuUkVTRVR9CnttfVt7d30ye0ZvcmUuUkVTRVR9e219XXtGb3JlLlJFU0VUfXtjfSAzIGNoYXJhY3RlciBVc2VybmFtZSBHZW5lcmF0b3IgWzEzJSBTdWNjZXNzXXtGb3JlLlJFU0VUfQp7bX1be3d9M3tGb3JlLlJFU0VUfXttfV17Rm9yZS5SRVNFVH17bX0gNCBjaGFyYWN0ZXIgVXNlcm5hbWUgR2VuZXJhdG9yIFszNiUgU3VjY2Vzc117Rm9yZS5SRVNFVH0Ke219W3t3fTR7Rm9yZS5SRVNFVH17bX1de0ZvcmUuUkVTRVR9e3l9IDUgY2hhcmFjdGVyIFVzZXJuYW1lIEdlbmVyYXRvciBbNjklIFN1Y2Nlc3Nde0ZvcmUuUkVTRVR9CnttfVt7d301e0ZvcmUuUkVTRVR9e219XXtGb3JlLlJFU0VUfXt3fSBDdXN0b20gVXNlcm5hbWUgR2VuZXJhdG9ye0ZvcmUuUkVTRVR9CnttfVt7d302e0ZvcmUuUkVTRVR9e219XXtGb3JlLlJFU0VUfXtsYn0gQWJvdXR7Rm9yZS5SRVNFVH0Ke219W3t3fTd7Rm9yZS5SRVNFVH17bX1de0ZvcmUuUkVTRVR9e2xyfSBFWElUe0ZvcmUuUkVTRVR9JycnKQogICAgcHJpbnQoIuKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkOKVkFxuIikKICAgIGNob2ljZSA9IGlucHV0KGYne219W3t3fT57bX1de3d9IENob2ljZT86ICcpCgoKICAgIGlmIGNob2ljZSA9PSAnMSc6CiAgICAgICAgU3Bpbm5lcigpCiAgICAgICAgZ2ggPSBpbnB1dChmIiIiCltceDFiWzk1bTFceDFiWzk1bVx4MUJbMzdtXSBTdGFydApbXHgxYls5NW0yXHgxYls5NW1ceDFCWzM3bV0gRXhpdAogIApbXHgxYls5NW0+XHgxYls5NW1ceDFCWzM3bV0gQ2hvaWNlPzogIiIiKQoKICAgICAgICBpZiBnaCBpbiBbJzAxJywnMSddOgogICAgICAgICAgICB3b3JkKCkKICAgICAgICAgICAgdGltZS5zbGVlcCgzKQogICAgICAgICAgICB3ZWJicm93c2VyLm9wZW4oJ2h0dHBzOi8vYml0Lmx5L2Rpc2NvcmQtdXNlcm5hbWUtZ2VuJykKICAgICAgICBlbGlmIGdoIGluIFsnMDInLCcyJ106CiAgICAgICAgICAgIGV4aXQgPSBzcGFtbWVyKCkKICAgICAgICBlbHNlOgogICAgICAgICBwcmludCgnJykKCiAgICBpZiBjaG9pY2UgPT0gJzInOgogICAgICAgIFNwaW5uZXIoKQogICAgICAgIGdoID0gaW5wdXQoZiIiIgpbXHgxYls5NW0xXHgxYls5NW1ceDFCWzM3bV0gU3RhcnQKW1x4MWJbOTVtMlx4MWJbOTVtXHgxQlszN21dIEV4aXQKICAKW1x4MWJbOTVtPlx4MWJbOTVtXHgxQlszN21dIENob2ljZT86ICIiIikKCiAgICAgICAgaWYgZ2ggaW4gWycwMScsJzEnXToKICAgICAgICAgICAgd29yZCgpCiAgICAgICAgICAgIHRpbWUuc2xlZXAoMykKICAgICAgICAgICAgd2ViYnJvd3Nlci5vcGVuKCdodHRwczovL2JpdC5seS9kaXNjb3JkLXVzZXJuYW1lLWdlbicpCiAgICAgICAgZWxpZiBnaCBpbiBbJzAyJywnMiddOgogICAgICAgICAgICBleGl0ID0gc3BhbW1lcigpCiAgICAgICAgZWxzZToKICAgICAgICAgcHJpbnQoJycpCgogICAgaWYgY2hvaWNlID09ICczJzoKICAgICAgICBTcGlubmVyKCkKICAgICAgICBnaCA9IGlucHV0KGYiIiIKW1x4MWJbOTVtMVx4MWJbOTVtXHgxQlszN21dIFN0YXJ0CltceDFiWzk1bTJceDFiWzk1bVx4MUJbMzdtXSBFeGl0CiAgCltceDFiWzk1bT5ceDFiWzk1bVx4MUJbMzdtXSBDaG9pY2U/OiAiIiIpCgogICAgICAgIGlmIGdoIGluIFsnMDEnLCcxJ106CiAgICAgICAgICAgIHdvcmQoKQogICAgICAgICAgICB0aW1lLnNsZWVwKDMpCiAgICAgICAgICAgIHdlYmJyb3dzZXIub3BlbignaHR0cHM6Ly9iaXQubHkvZGlzY29yZC11c2VybmFtZS1nZW4nKQogICAgICAgIGVsaWYgZ2ggaW4gWycwMicsJzInXToKICAgICAgICAgICAgZXhpdCA9IHNwYW1tZXIoKQogICAgICAgIGVsc2U6CiAgICAgICAgIHByaW50KCcnKQoKICAgIGlmIGNob2ljZSA9PSAnNCc6CiAgICAgICAgU3Bpbm5lcigpCiAgICAgICAgZ2ggPSBpbnB1dChmIiIiCltceDFiWzk1bTFceDFiWzk1bVx4MUJbMzdtXSBTdGFydApbXHgxYls5NW0yXHgxYls5NW1ceDFCWzM3bV0gRXhpdAogIApbXHgxYls5NW0+XHgxYls5NW1ceDFCWzM3bV0gQ2hvaWNlPzogIiIiKQoKICAgICAgICBpZiBnaCBpbiBbJzAxJywnMSddOgogICAgICAgICAgICB3b3JkKCkKICAgICAgICAgICAgdGltZS5zbGVlcCgzKQogICAgICAgICAgICB3ZWJicm93c2VyLm9wZW4oJ2h0dHBzOi8vYml0Lmx5L2Rpc2NvcmQtdXNlcm5hbWUtZ2VuJykKICAgICAgICBlbGlmIGdoIGluIFsnMDInLCcyJ106CiAgICAgICAgICAgIGV4aXQgPSBzcGFtbWVyKCkKICAgICAgICBlbHNlOgogICAgICAgICBwcmludCgnJykKCiAgICBpZiBjaG9pY2UgPT0gJzUnOgogICAgICAgIFNwaW5uZXIoKQogICAgICAgIGdoID0gaW5wdXQoZiIiIgpbXHgxYls5NW0xXHgxYls5NW1ceDFCWzM3bV0gU3RhcnQKW1x4MWJbOTVtMlx4MWJbOTVtXHgxQlszN21dIEV4aXQKICAKW1x4MWJbOTVtPlx4MWJbOTVtXHgxQlszN21dIENob2ljZT86ICIiIikKCiAgICAgICAgaWYgZ2ggaW4gWycwMScsJzEnXToKICAgICAgICAgICAgd29yZCgpCiAgICAgICAgICAgIHRpbWUuc2xlZXAoMykKICAgICAgICAgICAgd2ViYnJvd3Nlci5vcGVuKCdodHRwczovL2JpdC5seS9kaXNjb3JkLXVzZXJuYW1lLWdlbicpCiAgICAgICAgZWxpZiBnaCBpbiBbJzAyJywnMiddOgogICAgICAgICAgICBleGl0ID0gc3BhbW1lcigpCiAgICAgICAgZWxzZToKICAgICAgICAgcHJpbnQoJycpCgogICAgaWYgY2hvaWNlID09ICc2JzoKICAgICAgICBTcGlubmVyKCkKICAgICAgICBwcmludCgiXG5IZWxsbywgdGhhbmtzIGZvciB1c2luZyB0aGlzIVxuaWYgeW91IHJ1biBpbnRvIGFueSBwcm9ibGVtcyBtYWtlIHN1cmUgdG8gbGV0IG1lIGtub3cgYXNhcCFcbkdpdGh1YjogaHR0cHM6Ly9naXRodWIuY29tL1JvamFuR2FtaW5nWVRcblxuIikKCiAgICAgICAgdGltZS5zbGVlcCgxKQogICAgICAgIGV4aXQgPSBpbnB1dCgnW1x4MWJbOTVtPlx4MWJbOTVtXHgxQlszN21dIFByZXNzIEVOVEVSOiAnKQogICAgICAgIGV4aXQgPSBjbGVhcigpCiAgICAgICAgZXhpdCA9IHNwYW1tZXIoKQoKICAgIGlmIGNob2ljZSA9PSAnNyc6CiAgICAgICAgU3Bpbm5lcigpCiAgICAgICAgZXhpdCA9IFRydWUgaWYgaW5wdXQoZiJcblt7Rm9yZS5MSUdIVE1BR0VOVEFfRVh9PntGb3JlLlJFU0VUfV0gQXJlIFlvdSBTdXJlIFlvdSBXYW50IFRvIEV4aXQ/IFkvTjogIikubG93ZXIoKSA9PSAieSIgZWxzZSBzcGFtbWVyKCkgb3IgIm4iID09IHN5cy5leGl0KDApCiAgICBlbHNlOgogICAgICAgIHByaW50KGYiIikKICAgICAgICB0aW1lLnNsZWVwKDApCiAgICAgICAgcmV0dXJuIHNwYW1tZXIoKQoKc3BhbW1lcigp"
-exec(base64.b64decode(SECRET_ENV))
+import sys
+import time
+import colorama
+from os import system
+from time import sleep
+from colorama import *
+from colorama import Back, Fore, Style
+import threading , tls_client
+
+w = Fore.WHITE
+b = Fore.BLACK
+g = Fore.LIGHTGREEN_EX
+y = Fore.LIGHTYELLOW_EX
+m = Fore.LIGHTMAGENTA_EX
+c = Fore.LIGHTCYAN_EX
+lr = Fore.LIGHTRED_EX
+lb = Fore.LIGHTBLUE_EX
+
+
+def Spinner():
+	l = ['|', '/', '-', '\\', ' ']
+	for i in l+l+l:
+		sys.stdout.write(f"""\r {i}""")
+		sys.stdout.flush()
+		time.sleep(0.1)
+                
+def word():
+	l = ['|', '/', '-', '\\', ' ']
+	for i in l+l+l:
+		sys.stdout.write(f"""\r Starting {i}""")
+		sys.stdout.flush()
+		time.sleep(0.1)
+            
+
+global cls
+def cls():
+ os.system('cls' if os.name=='nt' else 'clear')
+
+def tool():
+  os.system('cls' if os.name=='nt' else 'clear')
+
+def clearConsole(): return os.system(
+    'cls' if os.name in ('nt', 'dos') else 'clear')
+
+def machine():
+    token = input("Enter your Token:")
+    target_username = input("Enter Target Username:")
+    target_username_holder = input("Enter Your User ID:")
+    headers = {
+        "Authorization": token,
+        "Accept-Encoding": "gzip, deflate",
+        "Origin": "https://discord.com",
+        "Accept": "*/*",
+        "X-Discord-Locale": "en-US",
+        "X-Super-Properties": "eyJvcyI6IldpbmRvd3MiLCJicm93c2VyIjoiRGlzY29yZCBDbGllbnQiLCJyZWxlYXNlX2NoYW5uZWwiOiJzdGFibGUiLCJjbGllbnRfdmVyc2lvbiI6IjEuMC45MDEzIiwib3NfdmVyc2lvbiI6IjEwLjAuMTkwNDUiLCJvc19hcmNoIjoieDY0Iiwic3lzdGVtX2xvY2FsZSI6ImVuLVVTIiwiY2xpZW50X2J1aWxkX251bWJlciI6MTk4MzE4LCJuYXRpdmVfYnVpbGRfbnVtYmVyIjozMjI2NiwiY2xpZW50X3ZlcnNpb25fc3RyaW5nIjoiMS4wLjkwMTMifQ==",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) discord/1.0.9013 Chrome/108.0.5359.215 Electron/22.3.2 Safari/537.36",
+        "Referer": "https://discord.com/channels/@me/pomelo",
+        "X-Debug-Options": "bugReporterEnabled",
+        "Content-Type": "application/json",
+        "X-Discord-Timezone": "Asia/Calcutta"
+    }
+    session = tls_client.Session(client_identifier="chrome110")
+    session.headers.update(headers)
+
+    def sniper():
+        payload = {"username": target_username}
+        request = session.post("https://canary.discord.com/api/v9/users/@me/pomelo", json=payload)
+        if request.status_code in (200, 201, 204):
+            print("[+] %s claimed" % target_username)
+            sys.exit()
+        else:
+            print("[-] Failed to snipe", request.text)
+            sys.exit()
+
+    def get():
+        while True:
+            request = session.get("https://canary.discord.com/api/v9/users/%s" % target_username_holder)
+            if request.status_code in (200, 201, 204):
+                if target_username not in request.text:
+                    sniper()
+                    sys.exit()
+                else:
+                    print("[+] %s is still taken" % target_username)
+            elif request.status_code == 404:
+                print("[-] %s invalid user" % target_username_holder)
+                sys.exit()
+            elif request.status_code == 429:
+                rl = request.json().get('retry_after')
+                print("[-] ratelimit hit, sleeping for %s seconds" % rl)
+                time.sleep(rl)
+            else:
+                print("[-] unknown error", request.text)
+
+    get()    
+
+def spammer():
+    clear = lambda: os.system('cls')
+    clear()
+    colorama.init()
+    print('')
+    print('')
+    print("   /$$   /$$                                                                                  /$$$$$$            /$$                              \n")
+    print("  | $$  | $$                                                                                 /$$__  $$          |__/                              \n")
+    print("  | $$  | $$  /$$$$$$$  /$$$$$$   /$$$$$$  /$$$$$$$   /$$$$$$  /$$$$$$/$$$$   /$$$$$$       | $$  \__/ /$$$$$$$  /$$  /$$$$$$   /$$$$$$   /$$$$$$ \n")
+    print("  | $$  | $$ /$$_____/ /$$__  $$ /$$__  $$| $$__  $$ |____  $$| $$_  $$_  $$ /$$__  $$      |  $$$$$$ | $$__  $$| $$ /$$__  $$ /$$__  $$ /$$__  $$\n")
+    print("  | $$  | $$|  $$$$$$ | $$$$$$$$| $$  \__/| $$  \ $$  /$$$$$$$| $$ \ $$ \ $$| $$$$$$$$       \____  $$| $$  \ $$| $$| $$  \ $$| $$$$$$$$| $$  \__/\n")
+    print("  | $$  | $$ \____  $$| $$_____/| $$      | $$  | $$ /$$__  $$| $$ | $$ | $$| $$_____/       /$$  \ $$| $$  | $$| $$| $$  | $$| $$_____/| $$      \n")
+    print("  |  $$$$$$/ /$$$$$$$/|  $$$$$$$| $$      | $$  | $$|  $$$$$$$| $$ | $$ | $$|  $$$$$$$      |  $$$$$$/| $$  | $$| $$| $$$$$$$/|  $$$$$$$| $$      \n")
+    print("  \______/ |_______/  \_______/|__/      |__/  |__/ \_______/|__/ |__/ |__/ \_______/       \______/ |__/  |__/|__/| $$____/  \_______/|__/      \n")
+    print("                                                                                                                   | $$                          \n")
+    print("  [Github.com/RojanGamingYT]                                                                                       | $$                          \n")
+    print("                                                                                                                   |__/                          \n")
+    print("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════")
+    print(f'''{m}'''.replace('$', f'{m}${w}') + f'''
+{m}[{w}1{Fore.RESET}{m}]{Fore.RESET}{g} Start{Fore.RESET}
+{m}[{w}2{Fore.RESET}{m}]{Fore.RESET}{lb} About{Fore.RESET}
+{m}[{w}3{Fore.RESET}{m}]{Fore.RESET}{lr} EXIT{Fore.RESET}''')
+    print("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n")
+    choice = input(f'{m}[{w}>{m}]{w} Choice?: ')
+
+    if choice == '1':
+            Spinner()
+            time.sleep(1)
+            machine()
+
+    if choice == '2':
+        Spinner()
+        print("\nHello, thanks for using this!\nif you run into any problems make sure to let me know asap!\nGithub: https://github.com/RojanGamingYT\n\n")
+
+        time.sleep(1)
+        exit = input('[\x1b[95m>\x1b[95m\x1B[37m] Press ENTER: ')
+        exit = clear()
+        exit = spammer()
+
+    if choice == '3':
+        Spinner()
+        exit = True if input(f"\n[{Fore.LIGHTMAGENTA_EX}>{Fore.RESET}] Are You Sure You Want To Exit? Y/N: ").lower() == "y" else spammer() or "n" == sys.exit(0)
+    else:
+        print(f"")
+        time.sleep(0)
+        return spammer()
+
+spammer()
