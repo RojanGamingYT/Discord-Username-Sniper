@@ -4,3 +4,4 @@ time
 colorama
 threading
 tls_client
+requests
