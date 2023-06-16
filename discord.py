@@ -7,7 +7,6 @@ from time import sleep
 from colorama import *
 from colorama import Back, Fore, Style
 import threading , tls_client , requests
-from solver import solver
 
 w = Fore.WHITE
 b = Fore.BLACK
@@ -53,12 +52,9 @@ def machine():
     session.headers.update(headers)
 
     def sniper():
-        xses = requests.Session()
-        capKey = solver.solveCaptcha(xses)
         payload = {
         "username": target_username,
         "password": target_password,
-        "captcha_key": capKey,
         }
         request = session.patch("https://canary.discord.com/api/v9/users/@me", json=payload)
         if request.status_code in (200, 201, 204):
@@ -118,7 +114,7 @@ def spammer():
 
     if choice == '1':
             Spinner()
-            time.sleep(1)
+            time.sleep(0)
             machine()
 
     if choice == '2':
