@@ -6,7 +6,8 @@ from os import system
 from time import sleep
 from colorama import *
 from colorama import Back, Fore, Style
-import threading , tls_client
+import threading , tls_client , requests
+from solver import solver
 
 w = Fore.WHITE
 b = Fore.BLACK
@@ -25,13 +26,6 @@ def Spinner():
 		sys.stdout.flush()
 		time.sleep(0.1)
                 
-def word():
-	l = ['|', '/', '-', '\\', ' ']
-	for i in l+l+l:
-		sys.stdout.write(f"""\r Starting {i}""")
-		sys.stdout.flush()
-		time.sleep(0.1)
-            
 
 global cls
 
@@ -39,9 +33,9 @@ def clearConsole(): return os.system(
     'cls' if os.name in ('nt', 'dos') else 'clear')
 
 def machine():
-    token = input("\nEnter your Token:")
-    target_username = input("\nEnter Target Username: ")
-    target_password = input("\nEnter Target Password: ") 
+    token = input(Fore.GREEN +"\nEnter your Token:")
+    target_username = input(Fore.GREEN +"\nEnter Target Username: ")
+    target_password = input(Fore.GREEN +"\nEnter Target Password: ") 
     headers = {
         "Authorization": token,
         "Accept-Encoding": "gzip, deflate",
@@ -59,16 +53,19 @@ def machine():
     session.headers.update(headers)
 
     def sniper():
+        xses = requests.Session()
+        capKey = solver.solveCaptcha(xses)
         payload = {
         "username": target_username,
-        "password": target_password
+        "password": target_password,
+        "captcha_key": capKey,
         }
         request = session.patch("https://canary.discord.com/api/v9/users/@me", json=payload)
         if request.status_code in (200, 201, 204):
-            print("[+] Username changed to:", target_username)
+            print(Fore.GREEN +"[+] Username changed to:", target_username)
             sys.exit()
         else:
-            print("[-] Failed to change username:", request.text)
+            print(Fore.RED +"[-] Failed to change username:", request.text)
             machine()
 
     def get():
@@ -80,16 +77,16 @@ def machine():
                     sniper()
                     sys.exit()
                 else:
-                    print("[-] %s is still taken" % target_username)
+                    print(Fore.RED +"[-] %s is still taken" % target_username)
             elif request.status_code == 404:
-                print("[-] %s invalid user" % target_username)
+                print(Fore.RED +"[-] %s invalid user" % target_username)
                 sys.exit()        
             elif request.status_code == 429:
                 rl = request.json().get('retry_after')
-                print("[-] Ratelimit hit, sleeping for %s seconds" % rl)
+                print(Fore.RED +"[-] Ratelimit hit, sleeping for %s seconds" % rl)
                 time.sleep(rl)
             else:
-                print("[-] Unknown error:", request.text)
+                print(Fore.RED +"[-] Unknown error:", request.text)
 
     get()
     
