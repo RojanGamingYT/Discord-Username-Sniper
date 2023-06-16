@@ -8,6 +8,7 @@
 ## 🥅 ・Goals
 ```
 ・ 10 stars for Tool with Captcha Bypass ✅
+
 ・ 25 stars for Tool with proxy ❌
 
 ・ 50 stars for Advanced gen ❌
