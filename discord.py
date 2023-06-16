@@ -1,8 +1,3 @@
-# https://github.com/RojanGamingYT | https://github.com/RojanGamingYT/Discord-Username-Sniper
-# Coded / Dev / Owner: RojanGamingYT
-# Copyright © RojanGamingYT
-#########################################################
-
 import os
 import sys
 import time
@@ -39,19 +34,14 @@ def word():
             
 
 global cls
-def cls():
- os.system('cls' if os.name=='nt' else 'clear')
-
-def tool():
-  os.system('cls' if os.name=='nt' else 'clear')
 
 def clearConsole(): return os.system(
     'cls' if os.name in ('nt', 'dos') else 'clear')
 
 def machine():
-    token = input("Enter your Token:")
-    target_username = input("Enter Target Username:")
-    target_username_holder = input("Enter Your User ID:")
+    token = input("\nEnter your Token:")
+    target_username = input("\nEnter Target Username: ")
+    target_password = input("\nEnter Target Password: ") 
     headers = {
         "Authorization": token,
         "Accept-Encoding": "gzip, deflate",
@@ -63,41 +53,46 @@ def machine():
         "Referer": "https://discord.com/channels/@me/pomelo",
         "X-Debug-Options": "bugReporterEnabled",
         "Content-Type": "application/json",
-        "X-Discord-Timezone": "Asia/Calcutta"
+        "X-Discord-Timezone": "Asia/Calcutta",
     }
     session = tls_client.Session(client_identifier="chrome110")
     session.headers.update(headers)
 
     def sniper():
-        payload = {"username": target_username}
-        request = session.post("https://canary.discord.com/api/v9/users/@me/pomelo", json=payload)
+        payload = {
+        "username": target_username,
+        "password": target_password
+        }
+        request = session.patch("https://canary.discord.com/api/v9/users/@me", json=payload)
         if request.status_code in (200, 201, 204):
-            print("[+] %s claimed" % target_username)
+            print("[+] Username changed to:", target_username)
             sys.exit()
         else:
-            print("[-] Failed to snipe", request.text)
-            sys.exit()
+            print("[-] Failed to change username:", request.text)
+            machine()
 
     def get():
         while True:
-            request = session.get("https://canary.discord.com/api/v9/users/%s" % target_username_holder)
+            request = session.get("https://canary.discord.com/api/v9/users/@me")
             if request.status_code in (200, 201, 204):
+                response_data = request.json()
                 if target_username not in request.text:
                     sniper()
                     sys.exit()
                 else:
-                    print("[+] %s is still taken" % target_username)
+                    print("[-] %s is still taken" % target_username)
             elif request.status_code == 404:
-                print("[-] %s invalid user" % target_username_holder)
-                sys.exit()
+                print("[-] %s invalid user" % target_username)
+                sys.exit()        
             elif request.status_code == 429:
                 rl = request.json().get('retry_after')
-                print("[-] ratelimit hit, sleeping for %s seconds" % rl)
+                print("[-] Ratelimit hit, sleeping for %s seconds" % rl)
                 time.sleep(rl)
             else:
-                print("[-] unknown error", request.text)
+                print("[-] Unknown error:", request.text)
 
-    get()    
+    get()
+    
 
 def spammer():
     clear = lambda: os.system('cls')
