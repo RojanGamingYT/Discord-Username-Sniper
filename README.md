@@ -33,8 +33,6 @@ NOTE: Make sure you have Python 3.9+ and Added to Path.
 <a href="https://www.python.org/ftp/python/3.9.0/python-3.9.0-amd64.exe">Python v3.9</a>
 </p>
 
-**Code Inspirations from [Exploitxd](https://github.com/exploitxd/discord-username-sniper) & **
-
 ### Settings:
 - [x] - **Windows 10 / 11**
 - [x] - **Download Python:** [v3.10](https://www.python.org/ftp/python/3.10.5/python-3.10.5-amd64.exe) **or** [v3.9](https://www.python.org/ftp/python/3.9.0/python-3.9.0-amd64.exe)
