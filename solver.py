@@ -49,3 +49,4 @@ class solver():
                 return captchaToken
         else:
             return solver.solveGeneric(publicKey, siteUrl, session, domain)
+        
