@@ -5,3 +5,4 @@ colorama
 threading
 tls_client
 requests
+2captcha-python

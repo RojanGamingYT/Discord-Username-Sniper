@@ -7,7 +7,9 @@ from time import sleep
 from colorama import *
 from colorama import Back, Fore, Style
 import threading , tls_client , requests
-from solver import solver
+from twocaptcha import TwoCaptcha
+
+solver = TwoCaptcha('ENTER YOUR 2CAPTCHA DEVELOPER API KEY')
 
 w = Fore.WHITE
 b = Fore.BLACK
@@ -53,13 +55,12 @@ def machine():
     session.headers.update(headers)
 
     def sniper():
-        xses = requests.Session()
-        capKey = solver.solveCaptcha(xses)
+        result = solver.hcaptcha(sitekey='4c672d35-0701-42b2-88c3-78380b0db560',url='https://discord.com/channels/@me')
         payload = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) discord/1.0.9013 Chrome/108.0.5359.215 Electron/22.3.2 Safari/537.36",
         "username": target_username,
         "password": target_password,
-        "captcha_key": capKey,
-        }
+        "captcha_key": result}
         request = session.patch("https://canary.discord.com/api/v9/users/@me", json=payload)
         if request.status_code in (200, 201, 204):
             print(Fore.GREEN +"[+] Username changed to:", target_username)
@@ -96,7 +97,7 @@ def spammer():
     clear()
     colorama.init()
     print('')
-    print('')
+    print(Fore.CYAN +'')
     print("   /$$   /$$                                                                                  /$$$$$$            /$$                              \n")
     print("  | $$  | $$                                                                                 /$$__  $$          |__/                              \n")
     print("  | $$  | $$  /$$$$$$$  /$$$$$$   /$$$$$$  /$$$$$$$   /$$$$$$  /$$$$$$/$$$$   /$$$$$$       | $$  \__/ /$$$$$$$  /$$  /$$$$$$   /$$$$$$   /$$$$$$ \n")
@@ -106,8 +107,8 @@ def spammer():
     print("  |  $$$$$$/ /$$$$$$$/|  $$$$$$$| $$      | $$  | $$|  $$$$$$$| $$ | $$ | $$|  $$$$$$$      |  $$$$$$/| $$  | $$| $$| $$$$$$$/|  $$$$$$$| $$      \n")
     print("  \______/ |_______/  \_______/|__/      |__/  |__/ \_______/|__/ |__/ |__/ \_______/       \______/ |__/  |__/|__/| $$____/  \_______/|__/      \n")
     print("                                                                                                                   | $$                          \n")
-    print("  [Github.com/RojanGamingYT]                                                                                       | $$                          \n")
-    print("                                                                                                                   |__/                          \n")
+    print(Fore.CYAN +"  [Github.com/RojanGamingYT]                                                                                       | $$                          \n")
+    print(Fore.RED +"  [2Captcha Balance: {}]".format(solver.balance()))
     print("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════")
     print(f'''{m}'''.replace('$', f'{m}${w}') + f'''
 {m}[{w}1{Fore.RESET}{m}]{Fore.RESET}{g} Start{Fore.RESET}
@@ -118,7 +119,7 @@ def spammer():
 
     if choice == '1':
             Spinner()
-            time.sleep(1)
+            time.sleep(0)
             machine()
 
     if choice == '2':
