@@ -9,7 +9,7 @@
 ```
 ・ 10 stars for Tool with Captcha Bypass ✅
 
-・ 25 stars for Better Working Tool ✅
+・ 25 stars for Tool with Checker ✅
 
 ・ 50 stars for Advanced gen with Proxy ❌
 
