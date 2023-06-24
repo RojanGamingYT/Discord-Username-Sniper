@@ -35,7 +35,7 @@ NOTE: Make sure you have Python 3.9+ and Added to Path and Google Chrome and Chr
 </p>
 
 <p align="center">
-<a href="https://www.google.com/chrome/">Chrome</a> <br>
+<a href="https://www.google.com/chrome/">Google Chrome</a> <br>
 <a href="https://sites.google.com/chromium.org/driver/downloads">Chrome Driver</a>
 </p>
 
