@@ -1,4 +1,4 @@
-import time , os , colorama , sys
+import time , os , colorama , sys , requests , json
 from colorama import *
 from colorama import Back, Fore, Style
 from selenium import webdriver
@@ -26,6 +26,7 @@ m = Fore.LIGHTMAGENTA_EX
 c = Fore.LIGHTCYAN_EX
 lr = Fore.LIGHTRED_EX
 lb = Fore.LIGHTBLUE_EX
+
 
 global cls
 
@@ -64,27 +65,60 @@ def machine():
     else:
             print("Login Failed")
 
+    def loop():
+        while True:
+            time.sleep(3)
+            link = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[1]/div/div[2]/div/div/div/div/div/section/div[2]/div[2]/button[3]')
+            link.click()
 
-    time.sleep(3)
-    link = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[1]/div/div[2]/div/div/div/div/div/section/div[2]/div[2]/button[3]')
-    link.click()
+            time.sleep(2)
+            username = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[1]/div/div[2]/div[2]/div/div[2]/div/div/div[1]/div/div[1]/div[2]/div/div[2]/div/div[2]/button')
+            username.click()
 
-    time.sleep(2)
-    username = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[1]/div/div[2]/div[2]/div/div[2]/div/div/div[1]/div/div[1]/div[2]/div/div[2]/div/div[2]/button')
-    username.click()
+            time.sleep(5)
+            name_box = driver.find_element(By.CSS_SELECTOR, '#app-mount > div.appAsidePanelWrapper-ev4hlp > div.notAppAsidePanel-3yzkgB > div:nth-child(3) > div.layer-fP3xEz > div > div > form > div.content-1OG56Q.content-18dVld.thin-RnSY0a.scrollerBase-1Pkza4 > div:nth-child(1) > div > div > input')
+            name_box.clear()
+            name_box.send_keys(name)
 
-    time.sleep(5)
-    name_box = driver.find_element(By.CSS_SELECTOR, '#app-mount > div.appAsidePanelWrapper-ev4hlp > div.notAppAsidePanel-3yzkgB > div:nth-child(3) > div.layer-fP3xEz > div > div > form > div.content-1OG56Q.content-18dVld.thin-RnSY0a.scrollerBase-1Pkza4 > div:nth-child(1) > div > div > input')
-    name_box.clear()
-    name_box.send_keys(name)
+            time.sleep(2)
+            password_box = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[3]/div[2]/div/div/form/div[1]/div[2]/div/input')
+            password_box.send_keys(password)
+            #password_box.submit()
+        else:
+            driver.quit()
+    loop()
 
-    time.sleep(2)
-    password_box = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[3]/div[2]/div/div/form/div[1]/div[2]/div/input')
-    password_box.send_keys(password)
-    password_box.submit()
+def check_username(username, password):
+    url = "https://discord.com/api/v9/users/@me"
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": input(Fore.GREEN +"Enter your Token:"),
+    }
+    data = {"username": username, "password": password}
+    
+    response = requests.patch(url, headers=headers, data=json.dumps(data))
+    
+    return response.json()
 
-    time.sleep(5)
-    driver.quit()
+def process_usernames(input_file_path, output_file_path, delay=60/24): # 24 requests per minute to avoid rate limit
+    with open(input_file_path, 'r') as file:
+        usernames = file.read().splitlines()
+
+    with open(output_file_path, 'w') as outfile:
+        for username in usernames:
+            password = "" # Just empty so it doesn't change your name
+            response = check_username(username, password)
+            
+            if 'errors' in response:
+                if 'username' in response['errors']:
+                    print(Fore.RED +f"Username {username} is unavailable.")
+                else:
+                    print(Fore.CYAN +f"Username {username} is free.")
+                    outfile.write(username + "\n")
+                    outfile.flush()
+                    os.fsync(outfile.fileno())
+            
+            time.sleep(delay)
 
 def spammer():
     clear = lambda: os.system('cls')
@@ -105,9 +139,10 @@ def spammer():
     print("                                                                                                                   |__/                          \n")
     print("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════")
     print(f'''{m}'''.replace('$', f'{m}${w}') + f'''
-{m}[{w}1{Fore.RESET}{m}]{Fore.RESET}{g} Start{Fore.RESET}
-{m}[{w}2{Fore.RESET}{m}]{Fore.RESET}{lb} About{Fore.RESET}
-{m}[{w}3{Fore.RESET}{m}]{Fore.RESET}{lr} EXIT{Fore.RESET}''')
+{m}[{w}1{Fore.RESET}{m}]{Fore.RESET}{g} Sniper{Fore.RESET}
+{m}[{w}2{Fore.RESET}{m}]{Fore.RESET}{c} Checker{Fore.RESET}
+{m}[{w}3{Fore.RESET}{m}]{Fore.RESET}{lb} About{Fore.RESET}
+{m}[{w}2{Fore.RESET}{m}]{Fore.RESET}{lr} EXIT{Fore.RESET}''')
     print("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n")
     choice = input(f'{m}[{w}>{m}]{w} Choice?: ')
 
@@ -116,6 +151,12 @@ def spammer():
             machine()
 
     if choice == '2':
+            Spinner()
+            input_file_path = 'names.txt'
+            output_file_path = 'available.txt'
+            process_usernames(input_file_path, output_file_path)
+
+    if choice == '3':
         Spinner()
         print("\nHello, thanks for using this!\nif you run into any problems make sure to let me know asap!\nGithub: https://github.com/RojanGamingYT\n\n")
 
@@ -124,7 +165,7 @@ def spammer():
         exit = clear()
         exit = spammer()
 
-    if choice == '3':
+    if choice == '4':
         Spinner()
         exit = True if input(f"\n[{Fore.LIGHTMAGENTA_EX}>{Fore.RESET}] Are You Sure You Want To Exit? Y/N: ").lower() == "y" else spammer() or "n" == sys.exit(0)
     else:
