@@ -20,28 +20,34 @@
 ```sh-session
 Download This as zip
 Extract File
+Install Google Chrome and Chrome Driver with Same Version
 pip install -r requirements.txt
 Once All The Modules Have Been Installed
 python discord.py
 Enjoy!
 
-NOTE: Make sure you have Python 3.9+ and Added to Path.
+NOTE: Make sure you have Python 3.9+ and Added to Path and Google Chrome and Chrome driver with Similar Version Installed.
 ```
 
 <p align="center">
 <a href="https://www.python.org/ftp/python/3.10.5/python-3.10.5-amd64.exe">Python v3.10</a>ㅤㅤ 
 <a href="https://www.python.org/ftp/python/3.9.0/python-3.9.0-amd64.exe">Python v3.9</a>
+<a href="https://www.google.com/chrome/">Chrome</a>
+<a href="https://sites.google.com/chromium.org/driver/downloads">Chrome Driver</a>
+
+
 </p>
 
 ### Settings:
 - [x] - **Windows 10 / 11**
 - [x] - **Download Python:** [v3.10](https://www.python.org/ftp/python/3.10.5/python-3.10.5-amd64.exe) **or** [v3.9](https://www.python.org/ftp/python/3.9.0/python-3.9.0-amd64.exe)
+- [x] - **Download [Google Chrome](https://www.google.com/chrome/) and [Chrome Driver](https://sites.google.com/chromium.org/driver/downloads)**
 - [x] - **100% Safe!**
 - [x] - **Might Have Some Bugs**
 
 > **WARNING:** Many people have been selling/distributing of this Script!
 
-> **DO NOT** Installing Sniper From Anyother Place Than This Page, Expect it be **Hacked/Scammed.**
+> **DO NOT** Install Sniper From Anyother Place Than This Page, Expect it be **Hacked/Scammed.**
 
 ## 📄・License
 
