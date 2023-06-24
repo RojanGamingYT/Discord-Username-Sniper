@@ -1,13 +1,23 @@
-import os
-import sys
-import time
-import colorama
-from os import system
-from time import sleep
+import time , os , colorama , sys
 from colorama import *
 from colorama import Back, Fore, Style
-import threading , tls_client , requests
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 
+def Spinner():
+	l = ['|', '/', '-', '\\', ' ']
+	for i in l+l+l:
+		sys.stdout.write(f"""\r {i}""")
+		sys.stdout.flush()
+		time.sleep(0.1)
+                
 w = Fore.WHITE
 b = Fore.BLACK
 g = Fore.LIGHTGREEN_EX
@@ -17,82 +27,71 @@ c = Fore.LIGHTCYAN_EX
 lr = Fore.LIGHTRED_EX
 lb = Fore.LIGHTBLUE_EX
 
-
-def Spinner():
-	l = ['|', '/', '-', '\\', ' ']
-	for i in l+l+l:
-		sys.stdout.write(f"""\r {i}""")
-		sys.stdout.flush()
-		time.sleep(0.1)
-                
-
 global cls
 
 def clearConsole(): return os.system(
     'cls' if os.name in ('nt', 'dos') else 'clear')
 
 def machine():
-    token = input(Fore.GREEN +"\nEnter your Token:")
-    target_username = input(Fore.GREEN +"\nEnter Target Username: ")
-    target_password = input(Fore.GREEN +"\nEnter Target Password: ") 
-    headers = {
-        "Authorization": token,
-        "Accept-Encoding": "gzip, deflate",
-        "Origin": "https://discord.com",
-        "Accept": "*/*",
-        "X-Discord-Locale": "en-US",
-        "X-Super-Properties": "eyJvcyI6IldpbmRvd3MiLCJicm93c2VyIjoiRGlzY29yZCBDbGllbnQiLCJyZWxlYXNlX2NoYW5uZWwiOiJzdGFibGUiLCJjbGllbnRfdmVyc2lvbiI6IjEuMC45MDEzIiwib3NfdmVyc2lvbiI6IjEwLjAuMTkwNDUiLCJvc19hcmNoIjoieDY0Iiwic3lzdGVtX2xvY2FsZSI6ImVuLVVTIiwiY2xpZW50X2J1aWxkX251bWJlciI6MTk4MzE4LCJuYXRpdmVfYnVpbGRfbnVtYmVyIjozMjI2NiwiY2xpZW50X3ZlcnNpb25fc3RyaW5nIjoiMS4wLjkwMTMifQ==",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) discord/1.0.9013 Chrome/108.0.5359.215 Electron/22.3.2 Safari/537.36",
-        "Referer": "https://discord.com/channels/@me/pomelo",
-        "X-Debug-Options": "bugReporterEnabled",
-        "Content-Type": "application/json",
-        "X-Discord-Timezone": "Asia/Calcutta",
-    }
-    session = tls_client.Session(client_identifier="chrome110")
-    session.headers.update(headers)
+    token = input(Fore.GREEN +"Enter Your Account TOKEN:")
+    name = input(Fore.GREEN +"Enter Your Sniping Username:")
+    password = input(Fore.GREEN +"Enter Your Account Password:")
 
-    def sniper():
-        payload = {
-        "username": target_username,
-        "password": target_password,
-        }
-        request = session.patch("https://canary.discord.com/api/v9/users/@me", json=payload)
-        if request.status_code in (200, 201, 204):
-            print(Fore.GREEN +"[+] Username changed to:", target_username)
-            sys.exit()
-        else:
-            print(Fore.RED +"[-] Failed to change username:", request.text)
-            machine()
-
-    def get():
-        while True:
-            request = session.get("https://canary.discord.com/api/v9/users/@me")
-            if request.status_code in (200, 201, 204):
-                response_data = request.json()
-                if target_username not in request.text:
-                    sniper()
-                    sys.exit()
-                else:
-                    print(Fore.RED +"[-] %s is still taken" % target_username)
-            elif request.status_code == 404:
-                print(Fore.RED +"[-] %s invalid user" % target_username)
-                sys.exit()        
-            elif request.status_code == 429:
-                rl = request.json().get('retry_after')
-                print(Fore.RED +"[-] Ratelimit hit, sleeping for %s seconds" % rl)
-                time.sleep(rl)
-            else:
-                print(Fore.RED +"[-] Unknown error:", request.text)
-
-    get()
+    chrome_options = Options()
     
+    #chrome_options.add_argument("--headless")  # Run Chrome WebDriver in headless mode (without UI)
+
+    webdriver_service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=webdriver_service, options=chrome_options)
+
+    driver.get("https://discord.com/login")
+
+    script = f"""
+        const token = "{token}";
+        setInterval(() => {{
+            document.body.appendChild(document.createElement('iframe')).contentWindow.localStorage.token = `"${{token}}"`;
+        }}, 50);
+        setTimeout(() => {{
+            location.reload();
+        }}, 2500);
+    """
+    driver.execute_script(script)
+
+    time.sleep(5)
+
+    if "discord.com/app" in driver.current_url:
+            print("Login Successful")
+    else:
+            print("Login Failed")
+
+
+    time.sleep(3)
+    link = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[1]/div/div[2]/div/div/div/div/div/section/div[2]/div[2]/button[3]')
+    link.click()
+
+    time.sleep(2)
+    username = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[1]/div/div[2]/div[2]/div/div[2]/div/div/div[1]/div/div[1]/div[2]/div/div[2]/div/div[2]/button')
+    username.click()
+
+    time.sleep(5)
+    name_box = driver.find_element(By.CSS_SELECTOR, '#app-mount > div.appAsidePanelWrapper-ev4hlp > div.notAppAsidePanel-3yzkgB > div:nth-child(3) > div.layer-fP3xEz > div > div > form > div.content-1OG56Q.content-18dVld.thin-RnSY0a.scrollerBase-1Pkza4 > div:nth-child(1) > div > div > input')
+    name_box.clear()
+    name_box.send_keys(name)
+
+    time.sleep(2)
+    password_box = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[3]/div[2]/div/div/form/div[1]/div[2]/div/input')
+    password_box.send_keys(password)
+    password_box.submit()
+
+    time.sleep(5)
+    driver.quit()
 
 def spammer():
     clear = lambda: os.system('cls')
     clear()
     colorama.init()
     print('')
-    print('')
+    print(Fore.CYAN +'')
     print("   /$$   /$$                                                                                  /$$$$$$            /$$                              \n")
     print("  | $$  | $$                                                                                 /$$__  $$          |__/                              \n")
     print("  | $$  | $$  /$$$$$$$  /$$$$$$   /$$$$$$  /$$$$$$$   /$$$$$$  /$$$$$$/$$$$   /$$$$$$       | $$  \__/ /$$$$$$$  /$$  /$$$$$$   /$$$$$$   /$$$$$$ \n")
@@ -102,7 +101,7 @@ def spammer():
     print("  |  $$$$$$/ /$$$$$$$/|  $$$$$$$| $$      | $$  | $$|  $$$$$$$| $$ | $$ | $$|  $$$$$$$      |  $$$$$$/| $$  | $$| $$| $$$$$$$/|  $$$$$$$| $$      \n")
     print("  \______/ |_______/  \_______/|__/      |__/  |__/ \_______/|__/ |__/ |__/ \_______/       \______/ |__/  |__/|__/| $$____/  \_______/|__/      \n")
     print("                                                                                                                   | $$                          \n")
-    print("  [Github.com/RojanGamingYT]                                                                                       | $$                          \n")
+    print(Fore.CYAN +"  [Github.com/RojanGamingYT]                                                                                       | $$                          \n")
     print("                                                                                                                   |__/                          \n")
     print("════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════")
     print(f'''{m}'''.replace('$', f'{m}${w}') + f'''
@@ -114,7 +113,6 @@ def spammer():
 
     if choice == '1':
             Spinner()
-            time.sleep(0)
             machine()
 
     if choice == '2':

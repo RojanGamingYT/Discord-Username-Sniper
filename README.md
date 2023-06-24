@@ -9,9 +9,9 @@
 ```
 ・ 10 stars for Tool with Captcha Bypass ✅
 
-・ 25 stars for Tool with proxy ❌
+・ 25 stars for Better Working Tool ✅
 
-・ 50 stars for Advanced gen ❌
+・ 50 stars for Advanced gen with Proxy ❌
 
 ・ 100 stars for Better and Managed Generator ❌
 ```
