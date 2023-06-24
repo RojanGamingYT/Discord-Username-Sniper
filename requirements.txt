@@ -1,5 +1,3 @@
 selenium
 colorama
-sys
-time
-os
+webdriver-manager
