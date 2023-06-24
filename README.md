@@ -3,7 +3,7 @@
   <img src="https://profile-counter.glitch.me/RojanGamingYT_Discord-Username-Sniper/count.svg" />
 </p>
 
-![image](https://github.com/RojanGamingYT/Discord-Username-Sniper/blob/08f22cd264bf96d7adf08e7de4b661abdb872a2f/code.png)
+![image](/code.png)
 
 ## 🥅 ・Goals
 ```
