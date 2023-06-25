@@ -1,5 +1,4 @@
 selenium
 colorama
 requests
-json
 webdriver-manager
