@@ -83,7 +83,8 @@ def machine():
             time.sleep(2)
             password_box = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[3]/div[2]/div/div/form/div[1]/div[2]/div/input')
             password_box.send_keys(password)
-            #password_box.submit()
+            password_box.submit()
+            time.sleep(5)
         else:
             driver.quit()
     loop()
